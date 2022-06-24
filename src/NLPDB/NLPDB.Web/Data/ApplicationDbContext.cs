@@ -9,5 +9,11 @@ namespace NLPDB.Web.Data
             : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.ApplyConfigurationsFromAssembly(typeof(Program).Assembly);
+            base.OnModelCreating(builder);
+        }
     }
 }
