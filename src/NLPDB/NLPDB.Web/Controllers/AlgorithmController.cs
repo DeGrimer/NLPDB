@@ -13,10 +13,27 @@ namespace NLPDB.Web.Controllers
         }
         public async Task<IActionResult> Index(Guid? id)
         {
-            return _context.Algorithms != null ?
-                          View(await _context.Algorithms.Where(x => x.Category == 
-                          _context.Categories.Where(x => x.Id == id).First()).ToListAsync()):
-                          Problem("Entity set 'ApplicationDbContext.Algorithms'  is null.");
+            var alg1 = _context.Categories.Where(x => x.Id == id).First();
+            var alg2 = _context.Algorithms.Where(x => x.Category == alg1).ToList();
+            ViewData["Category"] = alg1.Id;
+            return View(alg2);
+        }
+
+        public async Task<IActionResult> Details(Guid? id, string cat)
+        {
+            if (id == null || _context.Algorithms == null)
+            {
+                return NotFound();
+            }
+            var algorithm = await _context.Algorithms
+                .FirstAsync(m => m.Id == id);
+            algorithm.Category = _context.Categories.Where(x => x.Id == Guid.Parse(cat)).First();
+            if (algorithm == null)
+            {
+                return NotFound();
+            }
+
+            return View(algorithm);
         }
     }
 }

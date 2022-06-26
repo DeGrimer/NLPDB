@@ -34,7 +34,7 @@ namespace NLPDB.Web.Data.Migrations
 
                     b.HasIndex("TasksAlgId");
 
-                    b.ToTable("AlgorithmTaskAlg");
+                    b.ToTable("AlgorithmTaskAlg", (string)null);
                 });
 
             modelBuilder.Entity("CategoryTaskAlg", b =>
@@ -49,7 +49,7 @@ namespace NLPDB.Web.Data.Migrations
 
                     b.HasIndex("TasksAlgId");
 
-                    b.ToTable("CategoryTaskAlg");
+                    b.ToTable("CategoryTaskAlg", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

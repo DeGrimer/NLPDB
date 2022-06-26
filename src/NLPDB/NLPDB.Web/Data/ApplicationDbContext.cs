@@ -12,6 +12,7 @@ namespace NLPDB.Web.Data
         }
         public DbSet<Algorithm> Algorithms { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<TaskAlg> TaskAlg { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfigurationsFromAssembly(typeof(Program).Assembly);

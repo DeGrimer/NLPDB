@@ -8,8 +8,9 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Content)
+                @Html.DisplayNameFor(model => model.TasksAlg)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +20,10 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Content)
+                @Html.DisplayFor(modelItem => item.TasksAlg)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id" asp-route-cat="@ViewData["Category"]">Подробно</a>
             </td>
         </tr>
 }

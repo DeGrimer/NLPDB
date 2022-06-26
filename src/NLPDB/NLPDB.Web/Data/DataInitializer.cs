@@ -66,7 +66,44 @@ namespace NLPDB.Web.Data
                     throw new ArgumentException();
                 }
             }
+            var category = new Category()
+            {
+                Name = "Классификация текста",
+                Description = "Text classification is the task of assigning a sentence or document an appropriate category. The categories depend on the chosen dataset and can range from topics."
+            };
+            await context.Categories.AddAsync(category);
+            category = new Category()
+            {
+                Name = "Анализ тональности",
+                Description = "Sentiment analysis is the task of classifying the polarity of a given text. For instance, a text-based tweet can be categorized into either \"positive\", \"negative\", or \"neutral\". ",
+            };
+            await context.Categories.AddAsync(category);
+            await context.SaveChangesAsync();
+            var algorithm = new Algorithm()
+            {
+                Category = context.Categories.Where(c => c.Name == "Классификация текста").First(),
+                Name = "Модель заголовков",
+                Content = "A topic model is a type of statistical model for discovering the abstract that occur in a collection of documents. Topic modeling is a frequently used text-mining tool for the discovery of hidden semantic structures in a text body.",
+                Link = "https://github.com/mind-Lab/octis"
+            };
+            await context.Algorithms.AddAsync(algorithm);
+            algorithm = new Algorithm()
+            {
+                Category = context.Categories.Where(c => c.Name == "Анализ тональности").First(),
+                Name = "Анализ тональности твиттера",
+                Content = "Twitter sentiment analysis is the task of performing sentiment analysis on tweets from Twitter.",
+                Link = "https://github.com/lopezbec/COVID19_Tweets_Dataset"
+            };
+            await context.Algorithms.AddAsync(algorithm);
+            await context.SaveChangesAsync();
 
+            var tag = new TaskAlg()
+            {
+                Title = "Анализ заголовков",
+                Description = "ddd",
+                Algorithms = new List<Algorithm>() { context.Algorithms.Where(t => t.Name == "Модель заголовков").First()}
+            };
+            await context.TaskAlg.AddAsync(tag);
             await context.SaveChangesAsync();
         }
     }
