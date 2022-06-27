@@ -95,13 +95,44 @@ namespace NLPDB.Web.Data
                 Link = "https://github.com/lopezbec/COVID19_Tweets_Dataset"
             };
             await context.Algorithms.AddAsync(algorithm);
+            algorithm = new Algorithm()
+            {
+                Category = context.Categories.Where(c => c.Name == "Классификация текста").First(),
+                Name = "Двойное контрастное обучение",
+                Content = "Contrastive learning has achieved remarkable success in representation learning via self-supervision in unsupervised settings. However, effectively adapting contrastive learning to supervised learning tasks remains as a challenge in practice.",
+                Link = "https://github.com/hiyouga/dual-contrastive-learning"
+            };
+            await context.Algorithms.AddAsync(algorithm);
+            algorithm = new Algorithm()
+            {
+                Category = context.Categories.Where(c => c.Name == "Классификация текста").First(),
+                Name = "Контекстуализированные тематические модели",
+                Content = "Contextualized Topic Models are based on the Neural-ProdLDA variational autoencoding approach by Srivastava and Sutton (2017).",
+                Link = "https://github.com/MilaNLProc/contextualized-topic-models"
+            };
+            await context.Algorithms.AddAsync(algorithm);
             await context.SaveChangesAsync();
 
             var tag = new TaskAlg()
             {
                 Title = "Анализ заголовков",
                 Description = "ddd",
-                Algorithms = new List<Algorithm>() { context.Algorithms.Where(t => t.Name == "Модель заголовков").First()}
+                Algorithms = new List<Algorithm>() 
+                { 
+                    context.Algorithms.Where(t => t.Name == "Модель заголовков").First(),
+                    context.Algorithms.Where(t => t.Name == "Контекстуализированные тематические модели").First()
+                }
+            };
+            await context.TaskAlg.AddAsync(tag);
+            tag = new TaskAlg()
+            {
+                Title = "Субъективный анализ",
+                Description = "Анализирует отношение, мнение, чувства о продукте, услуге, явлении",
+                Algorithms = new List<Algorithm>()
+                {
+                    context.Algorithms.Where(t => t.Name == "Двойное контрастное обучение").First(),
+                    context.Algorithms.Where(t => t.Name == "Анализ тональности твиттера").First()
+                }
             };
             await context.TaskAlg.AddAsync(tag);
             await context.SaveChangesAsync();

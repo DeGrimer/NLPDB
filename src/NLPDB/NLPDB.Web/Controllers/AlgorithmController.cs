@@ -15,11 +15,10 @@ namespace NLPDB.Web.Controllers
         {
             var alg1 = _context.Categories.Where(x => x.Id == id).First();
             var alg2 = _context.Algorithms.Where(x => x.Category == alg1).ToList();
-            ViewData["Category"] = alg1.Id;
             return View(alg2);
         }
 
-        public async Task<IActionResult> Details(Guid? id, string cat)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Algorithms == null)
             {
@@ -27,11 +26,15 @@ namespace NLPDB.Web.Controllers
             }
             var algorithm = await _context.Algorithms
                 .FirstAsync(m => m.Id == id);
-            algorithm.Category = _context.Categories.Where(x => x.Id == Guid.Parse(cat)).First();
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(c => c.Algorithms.Contains(algorithm));
+            algorithm.Category = category;
             if (algorithm == null)
             {
                 return NotFound();
             }
+            var tasks = await _context.TaskAlg.Where(x => x.Algorithms.Contains(algorithm)).ToListAsync();
+            algorithm.TasksAlg = tasks;
 
             return View(algorithm);
         }

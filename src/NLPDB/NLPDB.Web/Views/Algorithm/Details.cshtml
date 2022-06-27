@@ -28,6 +28,16 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Link)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TasksAlg)
+        </dt>
+        @foreach(var t in Model.TasksAlg)
+        {
+        <dd class = "col-sm-10">
+            @t.Title
+        </dd>
+        }
+
     </dl>
 </div>
 <div>
