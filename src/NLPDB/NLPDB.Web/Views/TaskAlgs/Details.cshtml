@@ -1,11 +1,11 @@
 ﻿@model NLPDB.Web.Data.TaskAlg
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Описание задачи";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Задача</h1>
 
 <div>
     <h4>TaskAlg</h4>
@@ -35,6 +35,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Изменить</a> |
+    <a asp-action="Index">Вернуться к списку</a>
 </div>
